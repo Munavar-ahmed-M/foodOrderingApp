@@ -1,0 +1,19 @@
+{
+  "name": "learn-react",
+  "version": "1.0.0",
+  "description": "This app is used for practice the react ",
+  "scripts": {
+    "test": "jest",
+    "start":"parcel index.html",
+    "build":"parcel build index.html"
+  },
+  "author": "Munavar-Ahmed",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.15.2"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
