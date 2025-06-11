@@ -1,16 +1,1 @@
-- Header
-- -Logo
-- -Nav Items
--      -Home
--      -about
--      -ContactUs
--      -Cart
-- body
-- -Search Bar
-- -Card-container
-- -cards
--        -name
--        -dish,cosine, rating
-- footer
-- -copyright
-- -links
+## Food ordering App 
