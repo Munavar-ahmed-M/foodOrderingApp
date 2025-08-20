@@ -1,25 +1,5 @@
 import RestaurantCard from "./RestaurantCard";
 import restaurant from "../utils/mockData";
-<<<<<<< HEAD
-import { useState } from "react";
-const Body = () => {
-  const [RestaurantList, setRestaurantList] = useState(restaurant);
-  const filterRating = () => {
-    const filter = restaurant.filter((data) => {
-      return data.info.avgRating > 4.5;
-    });
-    setRestaurantList(filter);
-  };
-  return (
-    <div className="body">
-      <button className="filter-btn" onClick={filterRating}>
-        Top Rated Restaurant
-      </button>
-      <div className="card-container">
-        {RestaurantList.map((res) => {
-          return <RestaurantCard resData={res} key={res.info.id} />;
-        })}
-=======
 import { useEffect, useState } from "react";
 import { HOME_API } from "../utils/constants";
 import { Link } from "react-router";
@@ -112,7 +92,6 @@ const Body = () => {
                 </Link>
               );
             })}
->>>>>>> cdae8e4 (search items and restaurants-product with shimmer effect)
       </div>
     </div>
   );

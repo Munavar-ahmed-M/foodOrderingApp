@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 import { Link } from "react-router";
 
->>>>>>> cdae8e4 (search items and restaurants-product with shimmer effect)
 const Header = () => {
   return (
     <div className="header">
@@ -10,14 +7,6 @@ const Header = () => {
         <div className="logo">Odoms.</div>
       </div>
       <div className="nav-container">
-<<<<<<< HEAD
-        <ul>
-          <li>Home</li>
-          <li>ContactUs</li>
-          <li>About Us</li>
-          <li>Cart</li>
-        </ul>
-=======
         <div className="nav-container">
           <Link
             to={"/"}
@@ -48,7 +37,6 @@ const Header = () => {
             Cart
           </Link>
         </div>
->>>>>>> cdae8e4 (search items and restaurants-product with shimmer effect)
       </div>
     </div>
   );

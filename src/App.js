@@ -4,12 +4,13 @@ import Header from "./components/Header";
 import Body from "./components/Body";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
 import Contact from "./pages/Contact";
+import Test from "./Test";
 import ResMenu from "./pages/ResMenu";
+import Contact from "./pages/Contact";
 const AppLayout = () => {
   return (
     <div className="app">
       <Header />
-      <Body />
       <Outlet />
     </div>
   );
@@ -36,6 +37,9 @@ const route = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/test",
+    element: <Test />,
+  },
 ]);
 root.render(<RouterProvider router={route}></RouterProvider>);
-
