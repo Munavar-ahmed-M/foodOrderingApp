@@ -7,6 +7,7 @@ import Contact from "./pages/Contact";
 import Test from "./Test";
 import ResMenu from "./pages/ResMenu";
 import Contact from "./pages/Contact";
+import About from "./pages/About";
 const AppLayout = () => {
   return (
     <div className="app">
@@ -34,6 +35,10 @@ const route = createBrowserRouter([
       {
         path: "/restaurant/:id",
         element: <ResMenu />,
+      },
+      {
+        path: "/aboutUs",
+        element: <About />,
       },
     ],
   },

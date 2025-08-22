@@ -71,6 +71,7 @@
   justify-items: center;
   gap: 1em;
   padding: 0 3em;
+  padding-bottom: 2em;
 }
 
 /* ========== SEARCH & FILTER ========== */
@@ -346,4 +347,38 @@ li:hover {
 .button:hover {
   background: #e63e3e;
   transform: scale(1.05);
+}
+
+.user-card {
+  border: 1px solid black;
+  padding: 1em;
+  margin: 1em;
+  width: fit-content;
+}
+.user-card > div {
+  margin-bottom: 0.5em;
+}
+
+/* Large tablets / small laptops (≤ 1024px) → 3 columns */
+@media (max-width: 1024px) {
+  .card-container {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 2em;
+  }
+}
+
+/* Tablets (≤ 768px) → 2 columns */
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 1.5em;
+  }
+}
+
+/* Mobile (≤ 480px) → 1 column */
+@media (max-width: 480px) {
+  .card-container {
+    grid-template-columns: 1fr;
+    padding: 0 1em;
+  }
 }
