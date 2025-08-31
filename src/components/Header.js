@@ -1,6 +1,8 @@
 import { Link } from "react-router";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Header = () => {
+  const onlineStatus = useOnlineStatus();
   return (
     <div className="header">
       <div className="logo-container">
@@ -8,6 +10,15 @@ const Header = () => {
       </div>
       <div className="nav-container">
         <div className="nav-container">
+          <div
+            style={{
+              textDecoration: "none",
+              color: "white",
+              marginTop: "1.3em",
+            }}
+          >
+            Online : {onlineStatus ? "✅" : "❎"}
+          </div>
           <Link
             to={"/"}
             style={{ textDecoration: "none", color: "white" }}
@@ -28,6 +39,13 @@ const Header = () => {
             className="nav-items"
           >
             About Us
+          </Link>
+          <Link
+            to={"grocery"}
+            style={{ textDecoration: "none", color: "white" }}
+            className="nav-items"
+          >
+            Grocery
           </Link>
           <Link
             to={"cart"}

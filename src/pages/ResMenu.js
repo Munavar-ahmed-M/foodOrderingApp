@@ -2,37 +2,19 @@ import { useEffect, useState } from "react";
 import { MENU_API, MENU_ITEMS_IMGAGE } from "../utils/constants";
 import { useParams } from "react-router";
 import ShimmerMenu from "../shimmerUI/ShimmerMenu";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const ResMenu = () => {
-  const [Recommanded, setRecommanded] = useState(null);
-  const [RestaurantData, setRestaurantData] = useState(null);
-  const [expanded, setExpanded] = useState({}); // 👈 track expanded items
-
   const resId = useParams();
+  const { resInfo, recommandList } = useRestaurantMenu(resId.id);
+  console.log(resInfo, recommandList);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const value = MENU_API + resId.id + "&submitAction=ENTER";
-    const data = await fetch(value);
-    const json = await data.json();
-
-    const recommandedList =
-      json?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
-        ?.card?.itemCards;
-    const resdata = json?.data?.cards[2]?.card?.card?.info;
-
-    setRestaurantData(resdata);
-    setRecommanded(recommandedList);
-  };
-
-  if (!Recommanded || !RestaurantData) {
+  const [expanded, setExpanded] = useState({}); // 👈 track expanded items
+  if (!recommandList || !resInfo) {
     return <ShimmerMenu />;
   }
 
-  const { name, cuisines, avgRatingString } = RestaurantData;
+  const { name, cuisines, avgRatingString } = resInfo;
 
   return (
     <>
@@ -41,7 +23,7 @@ const ResMenu = () => {
       <h5 className="rating">{avgRatingString}</h5>
 
       <ul>
-        {Recommanded.map((el) => {
+        {recommandList.map((el) => {
           const {
             name,
             price,

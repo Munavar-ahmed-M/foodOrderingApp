@@ -4,12 +4,16 @@ import { useEffect, useState } from "react";
 import { HOME_API } from "../utils/constants";
 import { Link } from "react-router";
 import RestaurantCardShimmer from "../shimmerUI/RestaurantCardShimmer";
+import useOnlineStatus from "../utils/useOnlineStatus";
+import useRestaurantData from "../utils/useRestaurantData";
 const Body = () => {
   const [RestaurantList, setRestaurantList] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [filteredRestaurantList, setFilteredRestaurantList] = useState([]);
-  const [gotTheData, setGotTheData] = useState(false);
   const [toogleRestaurant, setToogleRestaurant] = useState(false);
+  const onlineStatus = useOnlineStatus();
+  const restaurantData = useRestaurantData();
+  console.log(restaurantData);
   console.log(RestaurantList);
   useEffect(() => {
     setTimeout(() => {
@@ -17,24 +21,6 @@ const Body = () => {
       setFilteredRestaurantList(restaurant);
     }, 1000);
   }, []);
-  useEffect(() => {
-    fetchData();
-  });
-  const fetchData = async () => {
-    const data = await fetch(HOME_API);
-    const json = await data.json();
-    const resData =
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants;
-    console.log(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredRestaurantList(resData);
-    setRestaurantList(resData);
-    if (RestaurantList.length > 0) {
-      setGotTheData(true);
-    }
-  };
   const filterRating = () => {
     const filter = RestaurantList.filter((data) => {
       return data.info.avgRating > 4.5;
@@ -59,6 +45,10 @@ const Body = () => {
     }
   };
   const array = new Array(20).fill(0, 0, 20);
+
+  if (onlineStatus === false) {
+    return <h1>Please Check your Internet Connection...</h1>;
+  }
   return (
     <div className="body">
       <div className="search-box">
