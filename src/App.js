@@ -1,4 +1,4 @@
-import react, { lazy, Suspense } from "react";
+import react, { lazy, Suspense, useState } from "react";
 import { createRoot } from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -8,16 +8,32 @@ import Test from "./Test";
 import ResMenu from "./pages/ResMenu";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import UserContext from "./utils/UserContext";
 const Grocery = lazy(() => {
   return import("./pages/Grocery");
 });
 console.log(Grocery);
 const AppLayout = () => {
+  const [userName, setUserName] = useState("Munavar--");
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <UserContext.Provider
+      value={{
+        loggedInUser: userName,
+        setUserName,
+      }}
+    >
+      <div className="app">
+        <UserContext.Provider
+          value={{
+            loggedInUser: "Akhida",
+            setUserName,
+          }}
+        >
+          <Header />
+        </UserContext.Provider>
+        <Outlet />
+      </div>
+    </UserContext.Provider>
   );
 };
 const root = createRoot(document.getElementById("root"));

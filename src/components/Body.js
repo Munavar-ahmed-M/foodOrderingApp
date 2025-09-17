@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withLabel } from "./RestaurantCard";
 import restaurant from "../utils/mockData";
 import { useEffect, useState } from "react";
 import { HOME_API } from "../utils/constants";
@@ -12,9 +12,8 @@ const Body = () => {
   const [filteredRestaurantList, setFilteredRestaurantList] = useState([]);
   const [toogleRestaurant, setToogleRestaurant] = useState(false);
   const onlineStatus = useOnlineStatus();
-  const restaurantData = useRestaurantData();
-  console.log(restaurantData);
-  console.log(RestaurantList);
+  const restaurantData = onlineStatus ? useRestaurantData() : null;
+  const NonVegRestaurant = withLabel(RestaurantCard);
   useEffect(() => {
     setTimeout(() => {
       setRestaurantList(restaurant);
@@ -50,8 +49,8 @@ const Body = () => {
     return <h1>Please Check your Internet Connection...</h1>;
   }
   return (
-    <div className="body">
-      <div className="search-box">
+    <div className="px-26 pb-7">
+      <div className="px-1 mt-4 mb-4">
         <input
           type="text"
           placeholder="search your favorite foods"
@@ -59,16 +58,23 @@ const Body = () => {
           onChange={(e) => {
             setSearchValue(e.target.value);
           }}
+          className="border-gray-400 border-2 px-2.5 py-2  text-md rounded-sm w-[13em] outline-0"
         ></input>
-        <button className="btn" onClick={handleFilter}>
+        <button
+          className="bg-red-500 p-3 text-white rounded-md w-20 text-sm ml-2"
+          onClick={handleFilter}
+        >
           Search
         </button>
-        <button className="btn" onClick={filterRating}>
+        <button
+          className="bg-red-500 p-3 text-white rounded-md w-auto text-sm ml-2 cursor-pointer"
+          onClick={filterRating}
+        >
           {toogleRestaurant ? "See All Restaurant" : "Top Rated Restaurant"}
         </button>
       </div>
 
-      <div className="card-container">
+      <div className="grid grid-cols-5 gap-8">
         {filteredRestaurantList.length == 0
           ? array.map((el, index) => <RestaurantCardShimmer key={index} />)
           : filteredRestaurantList.map((res) => {
@@ -78,7 +84,11 @@ const Body = () => {
                   to={"/restaurant/" + res.info.id}
                   style={{ textDecoration: "none", color: "black" }}
                 >
-                  <RestaurantCard resData={res} key={res.info.id} />
+                  {res.info?.veg ? (
+                    <NonVegRestaurant resData={res} key={res.info.id} />
+                  ) : (
+                    <RestaurantCard resData={res} key={res.info.id} />
+                  )}
                 </Link>
               );
             })}
