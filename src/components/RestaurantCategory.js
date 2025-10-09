@@ -6,7 +6,7 @@ const RestaurantCategory = ({ items, title, showItems, setShowItems }) => {
   };
   return (
     <>
-      <div className="flex justify-center my-2 ">
+      <div className="flex justify-center my-2 " data-testid="accordian">
         <div
           className=" p-4 w-7/12 my-1 bg-gray-50  shadow-xl rounded-sm flex justify-between flex-col cursor-pointer"
           onClick={handleClick}

@@ -18,8 +18,6 @@ const ResMenu = () => {
             "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
         )
       : undefined;
-  console.log(Categories);
-
   if (!Categories || !resInfo) {
     return <ShimmerMenu />;
   }
@@ -35,7 +33,7 @@ const ResMenu = () => {
           return (
             <>
               <RestaurantCategory
-                key={index}
+                key={`${index}-${category?.card?.card?.title || "category"}`}
                 items={category?.card?.card?.itemCards}
                 title={category?.card?.card?.title}
                 showItems={index === showItems}

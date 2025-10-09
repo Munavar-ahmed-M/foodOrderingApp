@@ -2,38 +2,37 @@ import react, { lazy, Suspense, useState } from "react";
 import { createRoot } from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Contact from "./pages/Contact";
 import Test from "./Test";
 import ResMenu from "./pages/ResMenu";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import UserContext from "./utils/UserContext";
+import appStore from "./utils/appStore";
+import { Provider } from "react-redux";
+import Cart from "./pages/Cart";
+
 const Grocery = lazy(() => {
   return import("./pages/Grocery");
 });
 console.log(Grocery);
 const AppLayout = () => {
-  const [userName, setUserName] = useState("Munavar--");
+  const [userName, setUserName] = useState("Munavar Ahmed");
   return (
-    <UserContext.Provider
-      value={{
-        loggedInUser: userName,
-        setUserName,
-      }}
-    >
-      <div className="app">
-        <UserContext.Provider
-          value={{
-            loggedInUser: "Akhida",
-            setUserName,
-          }}
-        >
+    <Provider store={appStore}>
+      <UserContext.Provider
+        value={{
+          loggedInUser: userName,
+          setUserName,
+        }}
+      >
+        <div className="app">
           <Header />
-        </UserContext.Provider>
-        <Outlet />
-      </div>
-    </UserContext.Provider>
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 const root = createRoot(document.getElementById("root"));
@@ -67,6 +66,10 @@ const route = createBrowserRouter([
       {
         path: "/aboutUs",
         element: <About />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
   },

@@ -1,13 +1,35 @@
+import { useDispatch, useSelector } from "react-redux";
 import { MENU_ITEMS_IMGAGE } from "../utils/constants";
+import { addItem, updateItem } from "../utils/cartSlice";
 const RestaurantList = ({ items }) => {
-  console.log(items);
-
+  const dispatch = useDispatch();
+  const cartItems = useSelector((store) => store.cart.items);
+  const handleItems = (e, item) => {
+    e.stopPropagation();
+    const itemQuantity = hasItem(item?.card?.info?.id);
+    let ItemWithQuantity;
+    if (itemQuantity > 0) {
+      dispatch(
+        updateItem({ id: item?.card?.info?.id, quantity: itemQuantity + 1 })
+      );
+    } else {
+      ItemWithQuantity = { ...item, quantity: 1 };
+      dispatch(addItem(ItemWithQuantity));
+    }
+  };
+  const hasItem = (id) => {
+    const item = cartItems.filter((card) => {
+      return card?.card?.info?.id == id;
+    });
+    return item.length > 0 ? item[0]?.quantity : 0;
+  };
   return (
     <>
       {items.map((item) => (
         <div
+          data-testid="items"
           key={item?.card?.info?.id}
-          className="flex py-4  justify-between border-gray-200 border-b-2 items-center "
+          className="flex py-4  justify-between border-gray-200 border-b-2 items-center"
         >
           <div className="text-left w-9/12">
             <div className="font-bold text-gray-700">
@@ -24,7 +46,10 @@ const RestaurantList = ({ items }) => {
             </p>
           </div>
           <div className="w-2/12 relative">
-            <button className="bg-white p-2 font-bold shadow-lg  text-xs text-black rounded-md absolute bottom-[-12] right-1/3 cursor-pointer">
+            <button
+              className="bg-white p-2 font-bold shadow-lg  text-xs text-black rounded-md absolute bottom-[-12] right-1/3 cursor-pointer"
+              onClick={(e) => handleItems(e, item)}
+            >
               Add +
             </button>
             <div className="h-25 rounded-3xl overflow-hidden  ">

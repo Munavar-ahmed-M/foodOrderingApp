@@ -1,8 +1,7 @@
 import RestaurantCard, { withLabel } from "./RestaurantCard";
 import restaurant from "../utils/mockData";
 import { useEffect, useState } from "react";
-import { HOME_API } from "../utils/constants";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import RestaurantCardShimmer from "../shimmerUI/RestaurantCardShimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import useRestaurantData from "../utils/useRestaurantData";
@@ -13,12 +12,10 @@ const Body = () => {
   const [toogleRestaurant, setToogleRestaurant] = useState(false);
   const onlineStatus = useOnlineStatus();
   const restaurantData = onlineStatus ? useRestaurantData() : null;
-  const NonVegRestaurant = withLabel(RestaurantCard);
+  const VegRestaurant = withLabel(RestaurantCard);
   useEffect(() => {
-    setTimeout(() => {
-      setRestaurantList(restaurant);
-      setFilteredRestaurantList(restaurant);
-    }, 1000);
+    setRestaurantList(restaurant);
+    setFilteredRestaurantList(restaurant);
   }, []);
   const filterRating = () => {
     const filter = RestaurantList.filter((data) => {
@@ -53,6 +50,7 @@ const Body = () => {
       <div className="px-1 mt-4 mb-4">
         <input
           type="text"
+          data-testid="searchInput"
           placeholder="search your favorite foods"
           value={searchValue}
           onChange={(e) => {
@@ -74,18 +72,19 @@ const Body = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-5 gap-8">
+      <div className="xl:grid xl:grid-cols-5 xl:gap-8 lg:flex lg:flex-wrap md:flex md:flex-row md:flex-wrap md:gap-4 sm:flex sm:flex-wrap sm:flex-col xs:gap-4">
         {filteredRestaurantList.length == 0
           ? array.map((el, index) => <RestaurantCardShimmer key={index} />)
           : filteredRestaurantList.map((res) => {
               return (
                 <Link
                   key={res.info.id}
+                  
                   to={"/restaurant/" + res.info.id}
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   {res.info?.veg ? (
-                    <NonVegRestaurant resData={res} key={res.info.id} />
+                    <VegRestaurant resData={res} key={res.info.id} />
                   ) : (
                     <RestaurantCard resData={res} key={res.info.id} />
                   )}

@@ -13,7 +13,6 @@ const useRestaurantMenu = (resId) => {
       json?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
     const resdata = json?.data?.cards[2]?.card?.card?.info;
     console.log("cards", cards, " json ", json);
-
     setResInfo(resdata);
     setCards(cards);
   };

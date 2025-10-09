@@ -11,13 +11,7 @@ const useRestaurantData = () => {
     const resData =
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants;
-    console.log(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
     setRestaurantList(resData);
-    if (RestaurantList.length > 0) {
-      setGotTheData(true);
-    }
   };
   return RestaurantList;
 };
